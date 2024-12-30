@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\light\\OneDrive\\Desktop\\DEVELOPMENT\\.NET_TRANNING\\TODO_API\\api\\api.csproj": {}
+    "C:\\Users\\light\\OneDrive\\Desktop\\DEVELOPMENT\\.NET_TRANNING\\TODO_API\\api\\Basic-Restful-Api--.NET-CORE-\\api.csproj": {}
   },
   "projects": {
-    "C:\\Users\\light\\OneDrive\\Desktop\\DEVELOPMENT\\.NET_TRANNING\\TODO_API\\api\\api.csproj": {
+    "C:\\Users\\light\\OneDrive\\Desktop\\DEVELOPMENT\\.NET_TRANNING\\TODO_API\\api\\Basic-Restful-Api--.NET-CORE-\\api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\light\\OneDrive\\Desktop\\DEVELOPMENT\\.NET_TRANNING\\TODO_API\\api\\api.csproj",
+        "projectUniqueName": "C:\\Users\\light\\OneDrive\\Desktop\\DEVELOPMENT\\.NET_TRANNING\\TODO_API\\api\\Basic-Restful-Api--.NET-CORE-\\api.csproj",
         "projectName": "api",
-        "projectPath": "C:\\Users\\light\\OneDrive\\Desktop\\DEVELOPMENT\\.NET_TRANNING\\TODO_API\\api\\api.csproj",
+        "projectPath": "C:\\Users\\light\\OneDrive\\Desktop\\DEVELOPMENT\\.NET_TRANNING\\TODO_API\\api\\Basic-Restful-Api--.NET-CORE-\\api.csproj",
         "packagesPath": "C:\\Users\\light\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\light\\OneDrive\\Desktop\\DEVELOPMENT\\.NET_TRANNING\\TODO_API\\api\\obj\\",
+        "outputPath": "C:\\Users\\light\\OneDrive\\Desktop\\DEVELOPMENT\\.NET_TRANNING\\TODO_API\\api\\Basic-Restful-Api--.NET-CORE-\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

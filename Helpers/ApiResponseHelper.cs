@@ -15,7 +15,11 @@ namespace api.Helpers
                 Status = 200,
                 Data = data,
                 MessageTh = messageTh,
-                MessageEn = messageEn
+                MessageEn = messageEn,
+                Meta = new MetaData
+                {
+                    TotalData = data is IEnumerable<object> collection ? collection.Count() : 1
+                },
             };
         }
     }

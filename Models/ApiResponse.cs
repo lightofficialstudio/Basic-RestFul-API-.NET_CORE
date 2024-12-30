@@ -11,5 +11,14 @@ namespace api.Models
         public required T Data { get; set; }
         public required string MessageTh { get; set; }
         public required string MessageEn { get; set; }
+        public object Meta { get; set; } = new MetaData();
+
+
+    }
+
+    public class MetaData
+    {
+        public DateTime RequestTime { get; set; } = DateTime.UtcNow;
+        public int TotalData { get; set; }
     }
 }
