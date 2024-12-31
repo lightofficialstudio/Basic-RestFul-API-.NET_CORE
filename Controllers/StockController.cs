@@ -6,6 +6,8 @@ using api.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using api.Helpers;
+using api.Mappers;
+using api.Dtos.Stock;
 
 namespace api.Controllers
 {
@@ -24,7 +26,8 @@ namespace api.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
-            var stock = _context.Stocks.ToList();
+            var stock = _context.Stocks.ToList()
+            .Select(s => s.ToStockDto());
 
             return Ok(ApiResponseHelper.Success(stock));
         }
@@ -35,13 +38,31 @@ namespace api.Controllers
             var stock = _context.Stocks.Find(id);
             var stock2 = _context.Stocks.FirstOrDefaultAsync(item => item.Id == id);
 
-
             if (stock == null)
             {
                 return NotFound();
             }
 
-            return Ok(stock);
+            var result = stock.ToStockDto();
+
+            return Ok(ApiResponseHelper.Success(result));
+        }
+
+        [HttpPost]
+        public IActionResult Create([FromBody] CreateStockRequestDto stockDto)
+        {
+            var stockModel = stockDto.ToStockFromCreateDTO();
+            _context.Stocks.Add(stockModel);
+            _context.SaveChanges();
+
+            var result = ApiResponseHelper.Success(stockModel.ToStockDto());
+
+            // return CreatedAtAction(nameof(GetById), new
+            // {
+            //     id = stockModel.Id
+            // }, result);
+
+            return Created(string.Empty, result);
         }
     }
 }
