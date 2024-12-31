@@ -471,3 +471,6 @@ C:\Users\light\OneDrive\Desktop\DEVELOPMENT\.NET_TRANNING\TODO_API\api\api\obj\D
 C:\Users\light\OneDrive\Desktop\DEVELOPMENT\.NET_TRANNING\TODO_API\api\api\obj\Debug\net9.0\api.pdb
 C:\Users\light\OneDrive\Desktop\DEVELOPMENT\.NET_TRANNING\TODO_API\api\api\obj\Debug\net9.0\api.genruntimeconfig.cache
 C:\Users\light\OneDrive\Desktop\DEVELOPMENT\.NET_TRANNING\TODO_API\api\api\obj\Debug\net9.0\ref\api.dll
+C:\Users\light\OneDrive\Desktop\DEVELOPMENT\.NET_TRANNING\TODO_API\api\api\bin\Debug\net9.0\FluentValidation.dll
+C:\Users\light\OneDrive\Desktop\DEVELOPMENT\.NET_TRANNING\TODO_API\api\api\bin\Debug\net9.0\FluentValidation.AspNetCore.dll
+C:\Users\light\OneDrive\Desktop\DEVELOPMENT\.NET_TRANNING\TODO_API\api\api\bin\Debug\net9.0\FluentValidation.DependencyInjectionExtensions.dll

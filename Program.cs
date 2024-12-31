@@ -1,5 +1,7 @@
 using api.Data;
 using Microsoft.EntityFrameworkCore;
+using FluentValidation.AspNetCore;
+using FluentValidation;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,8 +14,12 @@ builder.Services.AddDbContext<ApplicationDBContext>(options =>
 // ADD SWAGGER
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
 builder.Services.AddControllers();
+// Add FluentValidation
+builder.Services.AddValidatorsFromAssemblyContaining<Program>();
+builder.Services.AddFluentValidationAutoValidation();
+// builder.Services.AddFluentValidationClientsideAdapters();
+
 
 var app = builder.Build();
 

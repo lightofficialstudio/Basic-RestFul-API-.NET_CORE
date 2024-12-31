@@ -51,18 +51,28 @@ namespace api.Controllers
         [HttpPost]
         public IActionResult Create([FromBody] CreateStockRequestDto stockDto)
         {
-            var stockModel = stockDto.ToStockFromCreateDTO();
-            _context.Stocks.Add(stockModel);
-            _context.SaveChanges();
+            try
+            {
+                var stockModel = stockDto.ToStockFromCreateDTO();
+                _context.Stocks.Add(stockModel);
+                _context.SaveChanges();
 
-            var result = ApiResponseHelper.Success(stockModel.ToStockDto());
+                var result = ApiResponseHelper.Success(stockModel.ToStockDto());
 
-            // return CreatedAtAction(nameof(GetById), new
-            // {
-            //     id = stockModel.Id
-            // }, result);
+                // return CreatedAtAction(nameof(GetById), new
+                // {
+                //     id = stockModel.Id
+                // }, result);
 
-            return Created(string.Empty, result);
+                return Created(string.Empty, result);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new
+                {
+                    error = ex.Message
+                });
+            }
         }
     }
 }
