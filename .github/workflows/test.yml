@@ -66,12 +66,12 @@ jobs:
         run: ls -R
 
       - name: 🕵️ Initialize CodeQL
-        uses: github/codeql-action/init@v2
+        uses: github/codeql-action/init@v3
         with:
           languages: csharp
+          build-mode: manual
           queries: security-extended,security-and-quality
-          autobuild: true
-
+          
       - name: 🚀 Perform Code Scanning
         uses: github/codeql-action/analyze@v2
 
