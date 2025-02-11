@@ -3,66 +3,41 @@ name: Test Github Actions Workflow
 on:
   push:
     branches:
-      - release/development  # Trigger เมื่อมีการ push เข้า release/development
-  workflow_dispatch:  # รันเองแบบ Manual ได้
+      - release/development
+      - release/production  # ✅ Trigger เมื่อ push เข้า release/production ด้วย
+  workflow_dispatch:  # ✅ สามารถรันเองได้จาก GitHub UI
+
 
 jobs:
-  # 📌 Job ที่ 1: ทดสอบระบบ
-  test-run:
+  build-app:
     runs-on: ubuntu-latest
 
     steps:
-      - name: 🛠 Checkout Repository
+      - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: 🚀 Print Hello World
-        run: echo "Hello, GitHub Actions!"
-
-      - name: 📦 Check .NET Version
-        run: dotnet --version
-
-  # 📌 Job ที่ 2: สร้าง .NET Core Application
-  build-dotnet-app:
-    runs-on: ubuntu-latest
-    needs: test-run  # ต้องรอ job test-run ทำงานเสร็จก่อน
-
-    steps:
-      - name: 🛠 Checkout Repository
-        uses: actions/checkout@v4
-
-      - name: 🔨 Setup .NET SDK
+      - name: Setup .NET SDK
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: '8.0'  # เปลี่ยนเป็นเวอร์ชันที่ต้องการ
+          dotnet-version: '9.0'
 
-      - name: 📦 Restore Dependencies
-        run: dotnet restore
-
-      - name: 🏗 Build Project
+      - name: Build Project
         run: dotnet publish -c Release -o out
 
-      - name: 📁 Archive Build Output
-        uses: actions/upload-artifact@v4
-        with:
-          name: dotnet-build
-          path: out/
-
-  # 📌 Job ที่ 3: Deploy ไป Huawei Cloud (แต่ยังเป็น Simulation)
-  deploy-to-huawei-cloud:
+  deploy-development:
     runs-on: ubuntu-latest
-    needs: build-dotnet-app  # ต้องรอ job build-dotnet-app ทำงานเสร็จก่อน
+    needs: build-app
+    if: github.ref == 'refs/heads/release/development'  # ✅ ทำงานเฉพาะ branch development
 
     steps:
-      - name: 📂 Download Build Artifacts
-        uses: actions/download-artifact@v4
-        with:
-          name: dotnet-build
-          path: out/
+      - name: Simulate Deploy to Development
+        run: echo "Deploying to Huawei Cloud Development..."
 
-      - name: 🚀 Simulate Deployment (ไม่ Deploy จริง)
-        run: |
-          echo "Deploying to Huawei Cloud..."
-          ls -al out/
+  deploy-production:
+    runs-on: ubuntu-latest
+    needs: build-app
+    if: github.ref == 'refs/heads/release/production'  # ✅ ทำงานเฉพาะ branch production
 
-      - name: ✅ Deployment Success
-        run: echo "✅ Deployment simulation completed!"
+    steps:
+      - name: Simulate Deploy to Production
+        run: echo "🚀 Deploying to Huawei Cloud Production..."
