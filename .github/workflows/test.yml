@@ -1,0 +1,24 @@
+name: Test Github Actions Workflow
+
+on:
+  push:
+    branches:
+      - release/development
+  workflow_dispatch:
+
+jobs:
+  test-run:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 🛠 Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: 🚀 Print Hello World
+        run: echo "Hello, GitHub Actions!"
+
+      - name: 📦 Check .NET Version
+        run: dotnet --version
+
+      - name: ✅ Simulate Deployment (ไม่ Deploy จริง)
+        run: echo "Deploying to Huawei Cloud... (Simulation)"
