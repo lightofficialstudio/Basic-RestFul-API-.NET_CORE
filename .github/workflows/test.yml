@@ -12,8 +12,10 @@ permissions:
   contents: read
   security-events: write
 
+###############################################
+# 🏗️ Job 1: Build .NET Core Application
+###############################################
 jobs:
-  # 🏗️ Job 1: Build .NET Core Application
   build-app:
     runs-on: ubuntu-latest
     steps:
@@ -37,7 +39,9 @@ jobs:
           name: dotnet-build
           path: out/
 
-  # 🔍 Job 2: Code Scanning (Security Scan / Static Analysis)
+###############################################
+# 🔍 Job 2: Code Scanning (Security Scan / Static Analysis)
+###############################################
   code-scanning:
     runs-on: ubuntu-latest
     needs: build-app
@@ -64,7 +68,9 @@ jobs:
       - name: 🚀 Perform Code Scanning
         uses: github/codeql-action/analyze@v2
 
-  # 🐳 Job 3: Build Docker Image
+###############################################
+# 🐳 Job 3: Build Docker Image
+###############################################
   build-docker-image:
     runs-on: ubuntu-latest
     needs: code-scanning
@@ -81,7 +87,9 @@ jobs:
       - name: 📦 Push Docker Image
         run: docker tag myapp:${{ github.sha }} mydockerhub/myapp:${{ github.sha }} && docker push mydockerhub/myapp:${{ github.sha }}
 
-  # 🚀 Job 4: Deploy to Development Server
+###############################################
+# 🚀 Job 4: Deploy to Development Server
+###############################################
   deploy-development-server:
     runs-on: ubuntu-latest
     needs: build-docker-image
@@ -90,7 +98,9 @@ jobs:
       - name: 🚀 Deploying to Development Server (Simulation)
         run: echo "Deploying Docker Image to Development Server..."
 
-  # 🚀 Job 5: Deploy to Production Server
+###############################################
+# 🚀 Job 5: Deploy to Production Server
+###############################################
   deploy-production-server:
     runs-on: ubuntu-latest
     needs: build-docker-image
