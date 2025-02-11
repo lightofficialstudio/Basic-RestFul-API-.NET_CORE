@@ -48,6 +48,8 @@ jobs:
     steps:
       - name: 🛠 Checkout Repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: 🔨 Setup .NET SDK
         uses: actions/setup-dotnet@v4
@@ -60,10 +62,15 @@ jobs:
       - name: 🏗 Build Project (จำเป็นสำหรับ CodeQL)
         run: dotnet build --configuration Release
 
-      - name: 🕵️ Run Security Scan (CodeQL)
+      - name: 🔍 Debug List all files
+        run: ls -R
+
+      - name: 🕵️ Initialize CodeQL
         uses: github/codeql-action/init@v2
         with:
           languages: csharp
+          queries: security-extended,security-and-quality
+          autobuild: true
 
       - name: 🚀 Perform Code Scanning
         uses: github/codeql-action/analyze@v2
@@ -88,23 +95,34 @@ jobs:
         run: docker tag myapp:${{ github.sha }} mydockerhub/myapp:${{ github.sha }} && docker push mydockerhub/myapp:${{ github.sha }}
 
 ###############################################
-# 🚀 Job 4: Deploy to Development Server
+# 🚀 Job 4: Post Docker Build (ตัวกลาง)
+###############################################
+  post-docker-build:
+    runs-on: ubuntu-latest
+    needs: build-docker-image
+    steps:
+      - name: ✅ Docker Build Completed
+        run: echo "Docker build is completed. Proceeding to deployment..."
+
+###############################################
+# 🚀 Job 5: Deploy to Development Server
 ###############################################
   deploy-development-server:
     runs-on: ubuntu-latest
-    needs: build-docker-image
+    needs: post-docker-build  # ✅ เปลี่ยนมาใช้ post-docker-build เป็นตัวกลาง
     if: github.ref == 'refs/heads/release/development'
     steps:
-      - name: 🚀 Deploying to Development Server (Simulation)
+      - name: 🚀 Deploying to Development Server
         run: echo "Deploying Docker Image to Development Server..."
 
 ###############################################
-# 🚀 Job 5: Deploy to Production Server
+# 🚀 Job 6: Deploy to Production Server
 ###############################################
   deploy-production-server:
     runs-on: ubuntu-latest
-    needs: build-docker-image
+    needs: post-docker-build  # ✅ เปลี่ยนมาใช้ post-docker-build เป็นตัวกลาง
     if: github.ref == 'refs/heads/release/production'
     steps:
-      - name: 🚀 Deploying to Production Server (Simulation)
+      - name: 🚀 Deploying to Production Server
         run: echo "Deploying Docker Image to Production Server..."
+
