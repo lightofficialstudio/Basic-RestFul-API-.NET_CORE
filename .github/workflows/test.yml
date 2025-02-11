@@ -59,18 +59,15 @@ jobs:
       - name: 📦 Restore Dependencies
         run: dotnet restore
 
-      - name: 🏗 Build Project (จำเป็นสำหรับ CodeQL)
-        run: dotnet build --configuration Release
-
-      - name: 🔍 Debug List all files
-        run: ls -R
-
       - name: 🕵️ Initialize CodeQL
         uses: github/codeql-action/init@v3
         with:
           languages: csharp
           build-mode: manual
           queries: security-extended,security-and-quality
+
+      - name: 🏗 Build Project (จำเป็นสำหรับ CodeQL)
+        run: dotnet build --configuration Release
           
       - name: 🚀 Perform Code Scanning
         uses: github/codeql-action/analyze@v3
