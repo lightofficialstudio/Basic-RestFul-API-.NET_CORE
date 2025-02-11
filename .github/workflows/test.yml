@@ -73,7 +73,7 @@ jobs:
           queries: security-extended,security-and-quality
           
       - name: 🚀 Perform Code Scanning
-        uses: github/codeql-action/analyze@v2
+        uses: github/codeql-action/analyze@v3
 
 ###############################################
 # 🐳 Job 3: Build Docker Image
